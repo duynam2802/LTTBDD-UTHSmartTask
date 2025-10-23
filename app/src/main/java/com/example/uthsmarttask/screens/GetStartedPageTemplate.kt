@@ -50,6 +50,8 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 
 
+
+
 val pages = listOf(
     GetStartedItem(
         "Easy Time Management",
