@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">UTHSmartTask</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="enter_your_email_we_will_send_you_a_verification_code">Enter your Email, we will send you a verification code.\n</string>
+    <string name="your_email">Your Email</string>
+    <string name="verify_code">Verify Code</string>
+    <string name="enter_the_the_code_we_just_sent_you_on_your_registered_email">Enter the code \n we just sent you on your registered Email</string>
 </resources>

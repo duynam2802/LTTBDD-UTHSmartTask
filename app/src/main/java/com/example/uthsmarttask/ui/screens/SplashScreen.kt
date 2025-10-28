@@ -1,7 +1,6 @@
-package com.example.uthsmarttask.screens
+package com.example.uthsmarttask.ui.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -12,7 +11,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.delay
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -62,7 +60,6 @@ fun SplashScreen(navController: NavHostController) {
             color = Color(0xFF006EE9),
             modifier = Modifier
                 .padding(16.dp),
-
         )
 
     }

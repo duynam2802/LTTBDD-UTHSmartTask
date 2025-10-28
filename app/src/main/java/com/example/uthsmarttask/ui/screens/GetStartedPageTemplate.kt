@@ -1,7 +1,5 @@
-package com.example.uthsmarttask.screens
+package com.example.uthsmarttask.ui.screens
 
-import android.R.attr.maxWidth
-import android.text.Layout
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +19,6 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -37,15 +34,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.uthsmarttask.R
-import com.example.uthsmarttask.model.GetStartedItem
+import com.example.uthsmarttask.data.model.GetStartedItem
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 
@@ -198,7 +192,9 @@ fun GetStartedPageTemplate(navController: NavController) {
                     if (currentPage < pages.size - 1) {
                         currentPage++
                     } else {
-                        navController.navigate("home")
+                        navController.navigate("forgot-password")
+
+
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -206,7 +202,7 @@ fun GetStartedPageTemplate(navController: NavController) {
                     contentColor = Color.White
                 ),
                 modifier = Modifier
-                    .height(52.23.dp)
+                    .height(52.23f.dp)
                     .fillMaxWidth()
             ) {
                 Text(

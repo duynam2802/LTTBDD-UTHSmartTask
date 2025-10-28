@@ -1,4 +1,4 @@
-package com.example.uthsmarttask.model
+package com.example.uthsmarttask.data.model
 
 data class GetStartedItem(
     val title: String,
