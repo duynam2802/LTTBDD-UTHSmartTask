@@ -57,4 +57,11 @@ class ForgotPasswordViewModel : ViewModel() {
             }
         }
     }
+
+    // bên trong class ForgotPasswordViewModel
+
+    fun resetState() {
+        // Đặt lại uiState về trạng thái ban đầu
+        uiState.value = ForgotPasswordUiState()
+    }
 }

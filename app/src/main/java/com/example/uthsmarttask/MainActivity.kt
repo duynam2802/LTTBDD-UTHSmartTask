@@ -21,26 +21,29 @@ import com.example.uthsmarttask.ui.screens.GetStartedPageTemplate
 import com.example.uthsmarttask.ui.screens.forgotPassword.ForgotPasswordScreen
 import com.example.uthsmarttask.ui.screens.forgotPassword.VerifyCodeScreen
 import com.example.uthsmarttask.ui.screens.forgotPassword.VerifyCodeScreenPreview
+import com.example.uthsmarttask.ui.theme.UTHSmartTaskTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            UTHSmartTaskTheme {
+                val navController = rememberNavController()
 
-            val navController = rememberNavController()
+//            onBackPressedDispatcher.addCallback(this) {
+//                if (navController.previousBackStackEntry != null) {
+//                    navController.navigateUp()
+//                } else {
+//                    // Cho phép thoát app
+//                    isEnabled = false
+//                    onBackPressedDispatcher.onBackPressed()
+//                }
+//            }
 
-            onBackPressedDispatcher.addCallback(this) {
-                if (navController.previousBackStackEntry != null) {
-                    navController.navigateUp()
-                } else {
-                    // Cho phép thoát app
-                    isEnabled = false
-                    onBackPressedDispatcher.onBackPressed()
-                }
+                MyApp(navController)
             }
 
-            MyApp(navController)
         }
     }
 }
