@@ -18,6 +18,8 @@ class ForgotPasswordViewModel : ViewModel() {
     var newPassword = mutableStateOf("")
     var confirmPassword = mutableStateOf("")
     var uiState = mutableStateOf(ForgotPasswordUiState())
+    var passwordsMatch = mutableStateOf(true)
+
 
     fun sendResetCode(onSuccess: () -> Unit) {
         viewModelScope.launch {
@@ -36,7 +38,7 @@ class ForgotPasswordViewModel : ViewModel() {
         viewModelScope.launch {
             uiState.value = ForgotPasswordUiState(isLoading = true)
             delay(1000)
-            if (code.value == "111111") {
+            if (code.value == "11111") {
                 uiState.value = ForgotPasswordUiState(success = true)
                 onSuccess()
             } else {
@@ -49,6 +51,7 @@ class ForgotPasswordViewModel : ViewModel() {
         viewModelScope.launch {
             uiState.value = ForgotPasswordUiState(isLoading = true)
             delay(1000)
+
             if (newPassword.value == confirmPassword.value && newPassword.value.length >= 6) {
                 uiState.value = ForgotPasswordUiState(success = true)
                 onSuccess()
@@ -56,5 +59,13 @@ class ForgotPasswordViewModel : ViewModel() {
                 uiState.value = ForgotPasswordUiState(error = "Passwords do not match or too short")
             }
         }
+    }
+
+
+    // bên trong class ForgotPasswordViewModel
+
+    fun resetState() {
+        // Đặt lại uiState về trạng thái ban đầu
+        uiState.value = ForgotPasswordUiState()
     }
 }

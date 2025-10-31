@@ -5,4 +5,15 @@
     <string name="your_email">Your Email</string>
     <string name="verify_code">Verify Code</string>
     <string name="enter_the_the_code_we_just_sent_you_on_your_registered_email">Enter the code \n we just sent you on your registered Email</string>
+    <string name="create_new_password">Create new password</string>
+    <string name="your_new_password_must_be_different_form_previously_used_password">Your new password must be different form previously used password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="new_password">New Password</string>
+    <string name="password_reset_successful">Password reset sucessful!</string>
+    <string name="you_can_now_login_with_your_new_password">You can now login with your new password\n</string>
+    <string name="default_web_client_id">644884651775-h7larg6feui8lric30ht6hu4nvrnrb3h.apps.googleusercontent.com</string>
+    <string name="ready_to_explore_log_in_to_get_started">Ready to explore? Log in to get started.</string>
+    <string name="welcome">Welcome</string>
 </resources>

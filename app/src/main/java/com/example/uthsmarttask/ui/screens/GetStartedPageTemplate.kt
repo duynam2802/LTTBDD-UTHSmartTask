@@ -192,7 +192,8 @@ fun GetStartedPageTemplate(navController: NavController) {
                     if (currentPage < pages.size - 1) {
                         currentPage++
                     } else {
-                        navController.navigate("forgot-password")
+//                        navController.navigate("forgot-password")
+                        navController.navigate("home")
 
 
                     }

@@ -6,10 +6,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.uthsmarttask.ui.screens.GetStartedPageTemplate
+import com.example.uthsmarttask.ui.screens.HomeScreen
 import com.example.uthsmarttask.ui.screens.SplashScreen
+import com.example.uthsmarttask.ui.screens.forgotPassword.CreatePasswordScreen
 import com.example.uthsmarttask.ui.screens.forgotPassword.ForgotPasswordScreen
 import com.example.uthsmarttask.ui.screens.forgotPassword.ForgotPasswordViewModel
 import com.example.uthsmarttask.ui.screens.forgotPassword.VerifyCodeScreen
+import com.example.uthsmarttask.ui.screens.login.LoginScreen
+import com.example.uthsmarttask.ui.screens.login.ProfileScreen
+import com.example.uthsmarttask.ui.screens.productDetail.ProductDetailsScreen
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -23,5 +28,31 @@ fun NavGraph(navController: NavHostController) {
         composable("verify-code") {
             VerifyCodeScreen(navController = navController, viewModel = viewModel())
         }
+        composable ("create-new-password") {
+            CreatePasswordScreen(navController = navController, viewModel = viewModel())
+        }
+
+
+        composable("login") {
+            LoginScreen (viewModel())
+        }
+
+        composable("product-detail") {
+            ProductDetailsScreen(
+                navController = navController,
+                onBackClicked = { navController.popBackStack() }
+            )
+        }
+
+        composable("profile") {
+            ProfileScreen(navController)
+        }
+
+        composable("home") {
+            HomeScreen(navController)
+        }
+
+
+
     }
 }
