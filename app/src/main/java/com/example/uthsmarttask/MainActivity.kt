@@ -17,9 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.uthsmarttask.ui.screens.SplashScreen
 import com.example.uthsmarttask.ui.screens.GetStartedPageTemplate
 import com.example.uthsmarttask.ui.screens.forgotPassword.CreatePasswordScreen
@@ -29,7 +31,10 @@ import com.example.uthsmarttask.ui.screens.login.LoginScreen
 import com.example.uthsmarttask.ui.theme.UTHSmartTaskTheme
 import com.example.uthsmarttask.ui.screens.login.LoginViewModel
 import com.example.uthsmarttask.data.model.User
+import com.example.uthsmarttask.ui.screens.TestScreen
 import com.example.uthsmarttask.ui.screens.home.HomeScreen
+import com.example.uthsmarttask.ui.screens.home.detail.EmptyTaskScreen
+import com.example.uthsmarttask.ui.screens.home.detail.TaskDetailScreen
 import com.example.uthsmarttask.ui.screens.login.ProfileScreen
 import com.example.uthsmarttask.ui.screens.productDetail.ProductDetailsScreen
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -53,35 +58,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == 100) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                val idToken = account.idToken
-
-                val credential = GoogleAuthProvider.getCredential(idToken, null)
-                FirebaseAuth.getInstance().signInWithCredential(credential)
-                    .addOnCompleteListener { authResult ->
-                        if (authResult.isSuccessful) {
-                            val user = authResult.result.user
-                            Toast.makeText(
-                                this,
-                                "✅ Đăng nhập thành công: ${user?.displayName}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else {
-                            Toast.makeText(this, "❌ Đăng nhập thất bại", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-            } catch (e: Exception) {
-                Toast.makeText(this, "⚠️ Lỗi đăng nhập Google", Toast.LENGTH_LONG).show()
-                e.printStackTrace()
-            }
-        }
-    }
 
 }
 
@@ -160,6 +136,24 @@ fun MyApp(navController: NavHostController, viewModel: LoginViewModel = viewMode
 
             composable("home") {
                 HomeScreen(navController)
+            }
+
+            composable(
+                route = "taskDetail/{taskId}",
+                arguments = listOf(navArgument("taskId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val taskId = backStackEntry.arguments?.getInt("taskId")
+                if (taskId != null) {
+                    TaskDetailScreen(navController = navController, taskId = taskId)
+                }
+            }
+
+            composable("empty") {
+                EmptyTaskScreen(navController)
+            }
+
+            composable("test") {
+                TestScreen(navController)
             }
         }
     }

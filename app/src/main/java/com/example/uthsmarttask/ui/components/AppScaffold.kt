@@ -1,6 +1,5 @@
 package com.example.uthsmarttask.ui.components
 
-import android.R.attr.padding
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,32 +34,32 @@ fun AppScaffold(
     onBackClicked: (() -> Unit)? = null,
     showSaveButton: Boolean = false,
     onSaveClicked: () -> Unit = {},
+    showActionButton: Boolean = false,
+    onActionClicked: () -> Unit = {},
     showMoreMenu: Boolean = false,
     moreMenuItems: @Composable ColumnScope.() -> Unit = {},
+    actions: @Composable RowScope.() -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
         topBar = {
             when (screenLevel) {
-                ScreenLevel.MAIN -> {
-                    MainTopBar(title = title)
-                }
-                ScreenLevel.SUB -> {
-                    SubTopBar(
-                        title = title,
-                        showSaveButton = showSaveButton,
-                        onSaveClicked = onSaveClicked,
-                        showMoreMenu = showMoreMenu,
-                        moreMenuItems = moreMenuItems,
-                        onBackClicked = (onBackClicked ?: { navController.popBackStack() }) as () -> Unit
-                    )
-                }
+                ScreenLevel.MAIN -> MainTopBar(title = title)
+                ScreenLevel.SUB -> SubTopBar(
+                    title = title,
+                    showSaveButton = showSaveButton,
+                    onSaveClicked = onSaveClicked,
+                    showActionButton = showActionButton,
+                    onActionClicked = onActionClicked,
+                    showMoreMenu = showMoreMenu,
+                    moreMenuItems = moreMenuItems,
+                    actions = actions,
+                    onBackClicked = (onBackClicked ?: { navController.popBackStack() }) as () -> Unit
+                )
             }
         },
         bottomBar = {
-            if (screenLevel == ScreenLevel.MAIN) {
-                BottomNavigationBar(navController)
-            }
+            if (screenLevel == ScreenLevel.MAIN) BottomNavigationBar(navController)
         }
     ) { innerPadding ->
         Column(
@@ -69,18 +67,19 @@ fun AppScaffold(
                 .padding(innerPadding)
                 .fillMaxSize()
         ) {
-            if (screenLevel == ScreenLevel.MAIN) {
-
-            }
-
             content(PaddingValues())
         }
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainTopBar(title: String) {
+fun MainTopBar(
+    title: String,
+    showActionButton: Boolean = false,
+    onActionClicked: () -> Unit = {}
+) {
     TopAppBar(
         title = {
             Row(
@@ -88,41 +87,50 @@ fun MainTopBar(title: String) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(
-                        painter = painterResource(id = R.drawable.uth_logo),
-                        contentDescription = "Logo UTHSmartTask",
-                        modifier = Modifier
-                            .size(45.dp)
-                            .background(Color(0xFFE9F7FA),RoundedCornerShape(6.dp)),
+                // Logo
+                Image(
+                    painter = painterResource(id = R.drawable.uth_logo),
+                    contentDescription = "Logo UTHSmartTask",
+                    modifier = Modifier
+                        .size(45.dp)
+                        .background(Color(0xFFE9F7FA), RoundedCornerShape(6.dp)),
+                    contentScale = ContentScale.Inside
+                )
 
-                        contentScale = ContentScale.Inside,
-
-                    )
-                }
-
-                Column(modifier = Modifier
-                    .weight(1f).padding(horizontal = 12.dp), // Cho nó chiếm không gian còn lại
+                // Title
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 12.dp),
                     horizontalAlignment = Alignment.Start
                 ) {
                     Text(
                         "SmartTasks",
                         fontSize = 16.sp,
-                        lineHeight = 3.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary,
-
+                        lineHeight = 1.sp,
+                        color = MaterialTheme.colorScheme.primary
                     )
                     Text(
                         text = "A simple and efficient to-do app",
                         fontSize = 10.sp,
-                        lineHeight = 3.sp,
-                        color = MaterialTheme.colorScheme.primary,
-
-                        )
+                        lineHeight = 1.sp,
+                        color = MaterialTheme.colorScheme.primary
+                    )
                 }
 
-                IconButton(onClick = { }) {
+                // Optional Action Button
+                if (showActionButton) {
+                    IconButton(onClick = onActionClicked) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Action"
+                        )
+                    }
+                }
+
+                // Menu
+                IconButton(onClick = { /* menu */ }) {
                     Icon(
                         imageVector = Icons.Default.FormatListBulleted,
                         contentDescription = "Menu"
@@ -140,22 +148,24 @@ fun SubTopBar(
     title: String,
     showSaveButton: Boolean,
     onSaveClicked: () -> Unit,
+    showActionButton: Boolean,
+    onActionClicked: () -> Unit,
     showMoreMenu: Boolean,
     moreMenuItems: @Composable ColumnScope.() -> Unit,
-    onBackClicked: () -> Unit
+    onBackClicked: () -> Unit,
+    actions: @Composable RowScope.() -> Unit = {} // ✅ giữ nguyên
 ) {
     var menuExpanded by remember { mutableStateOf(false) }
 
-    TopAppBar(modifier = Modifier .padding(start = 24.dp, end = 24.dp),
+    TopAppBar(
+        modifier = Modifier.padding(start = 12.dp, end = 24.dp),
         navigationIcon = {
             IconButton(
                 onClick = onBackClicked,
                 modifier = Modifier
                     .clip(RoundedCornerShape(12.dp))
-                    .background(
-//                    color = MaterialTheme.colorScheme.primary,
-                        color = Color(0xFF03B4FA)
-                    )
+                    .background(Color(0xFF03B4FA))
+                    .size(40.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBackIosNew,
@@ -163,10 +173,7 @@ fun SubTopBar(
                     tint = Color.White
                 )
             }
-
-
         },
-
         title = {
             Box(
                 modifier = Modifier.fillMaxWidth(),
@@ -176,7 +183,7 @@ fun SubTopBar(
                     text = title,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
         },
@@ -184,6 +191,12 @@ fun SubTopBar(
             if (showSaveButton) {
                 TextButton(onClick = onSaveClicked) {
                     Text("Lưu")
+                }
+            }
+
+            if (showActionButton) {
+                IconButton(onClick = onActionClicked) {
+                    Icon(Icons.Default.Add, contentDescription = "Action")
                 }
             }
 
@@ -200,10 +213,13 @@ fun SubTopBar(
                     }
                 }
             }
+
+            actions()
         },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
     )
 }
+
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -217,23 +233,22 @@ fun BottomNavigationBar(navController: NavController) {
             icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
             label = { Text("Nhật ký") },
             selected = selectedIndex == 0,
-            onClick = { selectedIndex = 0 /* navController.navigate("home") */ }
+            onClick = { selectedIndex = 0 }
         )
         NavigationBarItem(
             icon = { Icon(Icons.Default.Favorite, contentDescription = "Sức khỏe") },
             label = { Text("Dữ liệu") },
             selected = selectedIndex == 1,
-            onClick = { selectedIndex = 1 /* navController.navigate("data") */ }
+            onClick = { selectedIndex = 1 }
         )
         NavigationBarItem(
             icon = { Icon(Icons.Default.Person, contentDescription = "Hồ sơ") },
             label = { Text("Hồ sơ") },
             selected = selectedIndex == 2,
-            onClick = { selectedIndex = 2 /* navController.navigate("profile") */ }
+            onClick = { selectedIndex = 2 }
         )
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
@@ -243,10 +258,19 @@ fun AppScaffoldPreview() {
         AppScaffold(
             navController = navController,
             title = "Nhật ký",
-            screenLevel = ScreenLevel.MAIN,
-
-            ) { paddingValues ->
-
+            screenLevel = ScreenLevel.SUB,
+            showSaveButton = true,
+            showActionButton = true,
+            onActionClicked = { /* hành động khi nhấn nút */ }
+        ) { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("Nội dung chính màn hình")
+            }
         }
     }
 }

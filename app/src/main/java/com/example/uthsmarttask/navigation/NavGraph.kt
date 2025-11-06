@@ -3,8 +3,10 @@ package com.example.uthsmarttask.navigation
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.uthsmarttask.ui.screens.GetStartedPageTemplate
 import com.example.uthsmarttask.ui.screens.home.HomeScreen
 import com.example.uthsmarttask.ui.screens.TestScreen
@@ -13,9 +15,11 @@ import com.example.uthsmarttask.ui.screens.forgotPassword.CreatePasswordScreen
 import com.example.uthsmarttask.ui.screens.forgotPassword.ForgotPasswordScreen
 import com.example.uthsmarttask.ui.screens.forgotPassword.ForgotPasswordViewModel
 import com.example.uthsmarttask.ui.screens.forgotPassword.VerifyCodeScreen
+import com.example.uthsmarttask.ui.screens.home.detail.EmptyTaskScreen
 import com.example.uthsmarttask.ui.screens.login.LoginScreen
 import com.example.uthsmarttask.ui.screens.login.ProfileScreen
 import com.example.uthsmarttask.ui.screens.productDetail.ProductDetailsScreen
+import com.example.uthsmarttask.ui.screens.home.detail.TaskDetailScreen
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -55,7 +59,22 @@ fun NavGraph(navController: NavHostController) {
 
         composable("home") { HomeScreen((navController))}
 
+        composable(
+            route = "taskDetail/{taskId}",
+            arguments = listOf(navArgument("taskId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val taskId = backStackEntry.arguments?.getInt("taskId")
+            if (taskId != null) {
+                TaskDetailScreen(navController = navController, taskId = taskId)
+            }
+        }
 
-
+        composable("empty") {
+            EmptyTaskScreen(navController)
+        }
     }
+
 }
+
+
+

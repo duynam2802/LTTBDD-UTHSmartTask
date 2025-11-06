@@ -67,6 +67,13 @@ fun TestScreen(
                 Text("forgot-password")
             }
 
+            Button(
+                onClick = { navController.navigate("home")  },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("home screen")
+            }
+
         }
     }
 }

@@ -193,7 +193,7 @@ fun GetStartedPageTemplate(navController: NavController) {
                         currentPage++
                     } else {
 //                        navController.navigate("forgot-password")
-                        navController.navigate("home")
+                        navController.navigate("test")
 
 
                     }

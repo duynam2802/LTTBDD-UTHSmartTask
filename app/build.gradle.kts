@@ -96,7 +96,7 @@ dependencies {
 
     // Dùng để gọi API
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0") // Hoặc kotlinx-serialization
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0") //
 
 // ViewModel cho Jetpack Compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
