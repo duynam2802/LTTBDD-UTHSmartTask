@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +29,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.uthsmarttask.R
 import com.example.uthsmarttask.ui.components.AppScaffold
+import com.example.uthsmarttask.ui.components.ScreenLevel
 import com.example.uthsmarttask.ui.theme.UTHSmartTaskTheme
 
 @Composable
@@ -38,10 +40,13 @@ fun ProductDetailsScreen(
     val scrollState = rememberScrollState()
     AppScaffold(
         navController = navController,
-        title = "Product Detail",
-        showBackButton = true,
-        showBottomBar = false,
-        onBackClicked = onBackClicked
+        title = "Dữ liệu",
+        screenLevel = ScreenLevel.SUB,
+        showMoreMenu = false,
+        moreMenuItems = {
+          },
+        showSaveButton = true,
+        onBackClicked = { navController.popBackStack() }
 
     ) {innerPadding ->
         Column(

@@ -6,7 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.uthsmarttask.ui.screens.GetStartedPageTemplate
-import com.example.uthsmarttask.ui.screens.HomeScreen
+import com.example.uthsmarttask.ui.screens.home.HomeScreen
+import com.example.uthsmarttask.ui.screens.TestScreen
 import com.example.uthsmarttask.ui.screens.SplashScreen
 import com.example.uthsmarttask.ui.screens.forgotPassword.CreatePasswordScreen
 import com.example.uthsmarttask.ui.screens.forgotPassword.ForgotPasswordScreen
@@ -48,9 +49,11 @@ fun NavGraph(navController: NavHostController) {
             ProfileScreen(navController)
         }
 
-        composable("home") {
-            HomeScreen(navController)
+        composable("test") {
+            TestScreen(navController)
         }
+
+        composable("home") { HomeScreen((navController))}
 
 
 

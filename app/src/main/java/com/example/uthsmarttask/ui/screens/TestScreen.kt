@@ -2,6 +2,7 @@ package com.example.uthsmarttask.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -11,19 +12,26 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.uthsmarttask.ui.components.AppScaffold
+import com.example.uthsmarttask.ui.components.ScreenLevel
 import com.example.uthsmarttask.ui.theme.UTHSmartTaskTheme
 
 @Composable
-fun HomeScreen(
+fun TestScreen(
     navController: NavController,
     // onBackClicked không cần thiết ở HomeScreen vì nó là màn hình chính
     // onBackClicked: () -> Unit
 ) {
     AppScaffold(
-        navController = navController, // Sử dụng navController được truyền vào
-        title = "Trang Chủ",
-        showBackButton = false,
-        showBottomBar = true,
+        navController = navController,
+        title = "Dữ liệu",
+        screenLevel = ScreenLevel.SUB,
+        showMoreMenu = false,
+        moreMenuItems = {
+            DropdownMenuItem(text = { Text("Cài đặt") }, onClick = { /* Handle settings click */ })
+            DropdownMenuItem(text = { Text("Đăng xuất") }, onClick = { /* Handle logout click */ })
+        },
+        showSaveButton = true,
+        onBackClicked = { navController.popBackStack() }
     ) { innerPadding ->
 
         Column(
@@ -59,16 +67,14 @@ fun HomeScreen(
                 Text("forgot-password")
             }
 
-            // Thêm các button khác nếu cần...
         }
-        // --- KẾT THÚC NỘI DUNG ---
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreenPreview() {
+fun TestScreenPreview() {
     UTHSmartTaskTheme {
-        HomeScreen(navController = rememberNavController())
+        TestScreen(navController = rememberNavController())
     }
 }

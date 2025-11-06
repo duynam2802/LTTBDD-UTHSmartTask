@@ -29,7 +29,7 @@ import com.example.uthsmarttask.ui.screens.login.LoginScreen
 import com.example.uthsmarttask.ui.theme.UTHSmartTaskTheme
 import com.example.uthsmarttask.ui.screens.login.LoginViewModel
 import com.example.uthsmarttask.data.model.User
-import com.example.uthsmarttask.ui.screens.HomeScreen
+import com.example.uthsmarttask.ui.screens.home.HomeScreen
 import com.example.uthsmarttask.ui.screens.login.ProfileScreen
 import com.example.uthsmarttask.ui.screens.productDetail.ProductDetailsScreen
 import com.google.android.gms.auth.api.signin.GoogleSignIn

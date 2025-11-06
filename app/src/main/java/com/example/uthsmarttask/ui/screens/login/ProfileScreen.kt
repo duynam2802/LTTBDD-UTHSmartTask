@@ -18,6 +18,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.google.firebase.auth.FirebaseAuth
 import androidx.navigation.NavController
 import com.example.uthsmarttask.ui.components.AppScaffold
+import com.example.uthsmarttask.ui.components.ScreenLevel
 
 @Composable
 fun ProfileScreen(navController: NavController) {
@@ -25,10 +26,14 @@ fun ProfileScreen(navController: NavController) {
     var isSigningOut by remember { mutableStateOf(false) }
 
     AppScaffold(
-        navController,
-        title = "Profile",
-        showBackButton = true,
-        onBackClicked = { navController.popBackStack() },
+        navController = navController,
+        title = "Dữ liệu",
+        screenLevel = ScreenLevel.SUB,
+        showMoreMenu = false,
+        moreMenuItems = {
+            },
+        showSaveButton = true,
+        onBackClicked = { navController.popBackStack() }
 
     ) {
         Column(
