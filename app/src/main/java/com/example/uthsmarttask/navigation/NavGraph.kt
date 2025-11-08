@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.uthsmarttask.ui.screens.GetStartedPageTemplate
+import com.example.uthsmarttask.ui.screens.OnboardingPermissionScreen
+import com.example.uthsmarttask.ui.screens.PermissionsScreen
 import com.example.uthsmarttask.ui.screens.home.HomeScreen
 import com.example.uthsmarttask.ui.screens.TestScreen
 import com.example.uthsmarttask.ui.screens.SplashScreen
@@ -25,6 +27,15 @@ import com.example.uthsmarttask.ui.screens.home.detail.TaskDetailScreen
 fun NavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "splash"){
         composable("splash") { SplashScreen(navController) }
+        composable("permissions") {
+            PermissionsScreen(
+                onPermissionsResult = {
+                    navController.navigate("getstarted1") {
+                        popUpTo("permissions") { inclusive = true }
+                    }
+                }
+            )
+        }
         composable("getstarted1") { GetStartedPageTemplate(navController) }
         composable("forgot-password") {
             val viewModel: ForgotPasswordViewModel = viewModel()
@@ -72,6 +83,9 @@ fun NavGraph(navController: NavHostController) {
         composable("empty") {
             EmptyTaskScreen(navController)
         }
+
+//      // Ví dụ trong NavHost của bạn
+
     }
 
 }

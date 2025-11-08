@@ -29,7 +29,7 @@ import com.example.uthsmarttask.R
 fun SplashScreen(navController: NavHostController) {
     LaunchedEffect(true) {
         delay(2000)
-        navController.navigate("getstarted1") {
+        navController.navigate("permissions") {
             popUpTo("splash") { inclusive = true }
         }
     }

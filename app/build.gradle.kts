@@ -101,4 +101,6 @@ dependencies {
 // ViewModel cho Jetpack Compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
 
+    implementation("com.google.accompanist:accompanist-permissions:0.30.1")
+
 }
